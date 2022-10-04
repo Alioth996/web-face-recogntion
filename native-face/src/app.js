@@ -1,3 +1,4 @@
+import '../pkg/face-api.js'
 const video = document.querySelector('video')
 // 开启摄像头
 const openMedia = () => {
@@ -8,6 +9,7 @@ const openMedia = () => {
 
   navigator.mediaDevices
     .getUserMedia({ video: {} })
+    // 挂在video的媒体流,实现显示实时录屏画面
     .then(stream => (video.srcObject = stream))
     .catch(err => console.error(err))
 }
@@ -21,4 +23,7 @@ Promise.all([
   .then(openMedia)
   .catch(err => console.log('本地人脸数据加载失败:', err))
 
-video.addEventListener('play', () => {})
+// 视频接入媒体流处理
+video.addEventListener('play', async e => {
+  // const detetions = await faceapi.
+})
