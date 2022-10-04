@@ -45,10 +45,13 @@ video.addEventListener('play', e => {
 
       const resizeDetections = faceapi.resizeResults(allDetetions, displaySize)
       // 清空画布
-      canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
+      canvas.getContext('2d')?.clearRect(0, 0, canvas.width, canvas.height)
       // 画人脸识别框
       faceapi.draw.drawDetections(canvas, resizeDetections)
-
+      // 骨骼识别
+      faceapi.draw.drawFaceLandmarks(canvas, resizeDetections)
+      //表情识别
+      faceapi.draw.drawFaceExpressions(canvas, resizeDetections)
       timer = null
       clearInterval(timer)
     }, 200)
