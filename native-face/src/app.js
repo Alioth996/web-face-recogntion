@@ -29,12 +29,26 @@ video.addEventListener('play', e => {
   // 单个人脸数据
   // const detetion = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
   if (!timer) {
+    // 从video创建一个canvas元素
+    const canvas = faceapi.createCanvasFromMedia(video)
+    document.body.append(canvas)
+    const displaySize = { width: video.width, height: video.height }
+    // 人脸位置校准,人脸居中识别,维度校正
+    faceapi.matchDimensions(canvas, displaySize)
+
     // 获取多个人脸数据,基于不同人脸模型
     timer = setInterval(async () => {
       const allDetetions = await faceapi
         .detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
         .withFaceLandmarks()
         .withFaceExpressions()
+
+      const resizeDetections = faceapi.resizeResults(allDetetions, displaySize)
+      // 清空画布
+      canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
+      // 画人脸识别框
+      faceapi.draw.drawDetections(canvas, resizeDetections)
+
       timer = null
       clearInterval(timer)
     }, 200)
