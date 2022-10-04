@@ -23,12 +23,20 @@ Promise.all([
   .then(openMedia)
   .catch(err => console.log('本地人脸数据加载失败:', err))
 
+let timer = null
 // 视频接入媒体流处理
-video.addEventListener('play', async e => {
+video.addEventListener('play', e => {
   // 单个人脸数据
-  const detetion = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
-
-  // 获取多个人脸数据,基于不同人脸模型
-  // const allDetetions = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
-  console.log(detetion)
+  // const detetion = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
+  if (!timer) {
+    // 获取多个人脸数据,基于不同人脸模型
+    timer = setInterval(async () => {
+      const allDetetions = await faceapi
+        .detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
+        .withFaceLandmarks()
+        .withFaceExpressions()
+      timer = null
+      clearInterval(timer)
+    }, 200)
+  }
 })
