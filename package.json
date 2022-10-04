@@ -1,0 +1,8 @@
+{
+  "name": "web-face-recogniton",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@gitee.com:akex9527/web-veri-face.git",
+  "author": "alex <2844520415@qq.com>",
+  "license": "MIT"
+}

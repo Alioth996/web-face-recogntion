@@ -1,0 +1,16 @@
+{
+  "name": "native-face",
+  "version": "1.0.0",
+  "description": "web face AI",
+  "keywords": [
+    "web",
+    "face-api",
+    "AI"
+  ],
+  "main": "index.js",
+  "license": "MIT",
+  "author": {
+    "name": "akex9527",
+    "email": "2844520415@qq.com"
+  }
+}
